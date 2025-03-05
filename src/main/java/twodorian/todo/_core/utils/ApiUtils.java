@@ -2,7 +2,6 @@ package twodorian.todo._core.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 import twodorian.todo._core.error.ErrorCode;
 
 public class ApiUtils {
