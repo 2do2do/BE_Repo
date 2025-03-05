@@ -3,6 +3,7 @@ package twodorian.todo._core.utils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
+import twodorian.todo._core.error.ErrorCode;
 
 public class ApiUtils {
 
@@ -12,8 +13,10 @@ public class ApiUtils {
     }
 
     // 예의 응답
-    public static ApiResult<?> error(String errorCode, String message, HttpStatus status) {
-        return new ApiResult<>(false, null, new ApiError(errorCode, message, status.value()));
+    public static ApiResult<?> error(ErrorCode error) {
+        return new ApiResult<>(false, null, new ApiError(
+                error.getErrorCode(), error.getMessage(), error.getStatus().value()
+        ));
     }
 
     @Getter

@@ -17,11 +17,7 @@ public class GlobalControllerAdvice {
 
         return ResponseEntity
                 .status(e.getErrorCode().getStatus())
-                .body(ApiUtils.error(
-                        e.getErrorCode().getErrorCode(),
-                        e.getErrorCode().getMessage(),
-                        e.getErrorCode().getStatus()
-                ));
+                .body(ApiUtils.error(e.getErrorCode()));
     }
 
     @ExceptionHandler(Exception.class)
@@ -30,10 +26,6 @@ public class GlobalControllerAdvice {
 
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(ApiUtils.error(
-                        ErrorCode.INTERNAL_SERVER_ERROR.getErrorCode(),
-                        ErrorCode.INTERNAL_SERVER_ERROR.getMessage(),
-                        HttpStatus.INTERNAL_SERVER_ERROR
-                ));
+                .body(ApiUtils.error(ErrorCode.INTERNAL_SERVER_ERROR));
     }
 }
