@@ -2,7 +2,6 @@ package twodorian.todo._core.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
 public class ApiUtils {
@@ -11,8 +10,8 @@ public class ApiUtils {
         return new ApiResult<>(true, response, null);
     }
 
-    public static ApiResult<?> error(String message, HttpStatus status) {
-        return new ApiResult<>(false, null, new ApiError(message, status.value()));
+    public static ApiResult<?> error(String errorCode, String message, HttpStatus status) {
+        return new ApiResult<>(false, null, new ApiError(errorCode, message, status.value()));
     }
 
     public static <T> ApiResult<T> error(T data) {
@@ -20,7 +19,6 @@ public class ApiUtils {
     }
 
     @Getter
-    @Setter
     @AllArgsConstructor
     public static class ApiResult<T> {
         private final boolean success;
@@ -28,8 +26,10 @@ public class ApiUtils {
         private final T error;
     }
 
-    @Getter @Setter @AllArgsConstructor
+    @Getter
+    @AllArgsConstructor
     public static class ApiError {
+        private final String errorCode;
         private final String message;
         private final int status;
     }
