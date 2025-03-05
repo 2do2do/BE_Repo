@@ -6,16 +6,14 @@ import org.springframework.http.HttpStatus;
 
 public class ApiUtils {
 
+    // 성공 응답
     public static <T> ApiResult<T> success(T response) {
         return new ApiResult<>(true, response, null);
     }
 
+    // 예의 응답
     public static ApiResult<?> error(String errorCode, String message, HttpStatus status) {
         return new ApiResult<>(false, null, new ApiError(errorCode, message, status.value()));
-    }
-
-    public static <T> ApiResult<T> error(T data) {
-        return new ApiResult<>(false, null, data);
     }
 
     @Getter
@@ -23,7 +21,7 @@ public class ApiUtils {
     public static class ApiResult<T> {
         private final boolean success;
         private final T response;
-        private final T error;
+        private final ApiError error;
     }
 
     @Getter

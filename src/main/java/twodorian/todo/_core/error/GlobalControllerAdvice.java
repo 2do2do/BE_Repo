@@ -7,39 +7,33 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import twodorian.todo._core.utils.ApiUtils;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-
 @Slf4j
 @RestControllerAdvice
 public class GlobalControllerAdvice {
 
     @ExceptionHandler(ApplicationException.class)
     public ResponseEntity<?> applicationHandler(ApplicationException e){
-        log.error("Error occurs {}", e.toString());
+        log.error("ApplicationException: {} | Message: {}", e.getErrorCode().getErrorCode(), e.getMessage(), e);
 
-        Map<String,Object> data = new HashMap<>();
-        data.put("status",e.getErrorCode().getStatus().value());
-        data.put("errorCode", e.getErrorCode().getErrorCode());
-        data.put("message",e.getErrorCode().getMessage());
-        data.put("timestamp", e.getTimestamp());
-
-        return ResponseEntity.status(e.getErrorCode().getStatus()).body(ApiUtils.error(data));
+        return ResponseEntity
+                .status(e.getErrorCode().getStatus())
+                .body(ApiUtils.error(
+                        e.getErrorCode().getErrorCode(),
+                        e.getErrorCode().getMessage(),
+                        e.getErrorCode().getStatus()
+                ));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> applicationHandler(Exception e){
-        log.error("Error occurs {}", e.getMessage());
+        log.error("Unexpected Exception: {}", e.getMessage(), e);
 
-        ErrorCode error = ErrorCode.INTERNAL_SERVER_ERROR;
-
-        Map<String,Object> data = new HashMap<>();
-        data.put("status",error.getStatus().value());
-        data.put("errorCode", error.getErrorCode());
-        data.put("message",e.getMessage());
-        data.put("timestamp", LocalDateTime.now());
-
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiUtils.error(data));
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiUtils.error(
+                        ErrorCode.INTERNAL_SERVER_ERROR.getErrorCode(),
+                        ErrorCode.INTERNAL_SERVER_ERROR.getMessage(),
+                        HttpStatus.INTERNAL_SERVER_ERROR
+                ));
     }
 }
