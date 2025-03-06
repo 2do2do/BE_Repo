@@ -20,6 +20,9 @@ public enum ErrorCode {
     MISSING_PARAMETER(HttpStatus.BAD_REQUEST, "REQ-002", "필수 파라미터가 누락되었습니다."),
     INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "REQ-003", "올바르지 않은 파라미터입니다."),
 
+    // 👤 사용자 관련 오류
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "USER-001", "사용자를 찾을 수 없습니다."),
+
     // 📂 리소스 관련 오류
     NOT_FOUND(HttpStatus.NOT_FOUND, "RES-001", "요청한 리소스를 찾을 수 없습니다."),
     DUPLICATE_RESOURCE(HttpStatus.CONFLICT, "RES-002", "이미 존재하는 리소스입니다."),
