@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import twodorian.todo._core.error.ApplicationException;
 import twodorian.todo._core.error.ErrorCode;
+import twodorian.todo.member.command.application.dto.MemberAuthResponseDTO;
 
 import java.security.Key;
 import java.util.Arrays;
