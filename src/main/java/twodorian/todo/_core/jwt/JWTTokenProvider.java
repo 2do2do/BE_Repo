@@ -44,7 +44,7 @@ public class JWTTokenProvider {
     // jwt 토큰 암호화를 위한 키
     private final Key secretKey;
 
-    public JWTTokenProvider(@Value("${JWT.SECRET}") String secretKey) {
+    public JWTTokenProvider(@Value("${JWT_SECRET}") String secretKey) {
         this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
     }
 
