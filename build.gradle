@@ -40,14 +40,20 @@ dependencies {
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
+    // (테스트용) H2 데이터베이스
+    runtimeOnly 'com.h2database:h2'
+
+    // PostgreSQL JDBC 드라이버
+    implementation 'org.postgresql:postgresql:42.7.2'
+    // HikariCP (PostgreSQL 기본 Connection Pool)
+    implementation 'com.zaxxer:HikariCP'
+    // MongoDB (Spring Data MongoDB)
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
     // Redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
-    // Event
+    // Message Queue - Kafka
     implementation 'org.springframework.kafka:spring-kafka'
-
-    // (테스트용) H2 데이터베이스
-    runtimeOnly 'com.h2database:h2'
 
     // 테스트 기능
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
