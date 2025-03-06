@@ -18,7 +18,7 @@ public class Member {
     private Long id;
 
     @Column
-    private String name;
+    private String nickname;
     @Column
     private String email;
     @Column
@@ -29,8 +29,8 @@ public class Member {
     private Authority authority;
 
     @Builder
-    public Member(String name, String email, String password, Authority authority) {
-        this.name = name;
+    public Member(String nickname, String email, String password, Authority authority) {
+        this.nickname = nickname;
         this.email = email;
         this.password = password;
         this.authority = authority;
