@@ -7,6 +7,15 @@ build/
 src/main/resources
 !src/main/resources/application.yml
 
+# QueryDSL QClass 파일 (자동 생성됨)
+/src/main/generated/
+
+# REST Docs 테스트 실행 시 생성되는 문서 스니펫
+/build/generated-snippets/
+
+# Asciidoctor 변환된 문서
+/build/docs/asciidoc/
+
 .env
 *.yml
 log
