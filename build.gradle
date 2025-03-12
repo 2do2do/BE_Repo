@@ -2,10 +2,11 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.3.9'
     id 'io.spring.dependency-management' version '1.1.7'
+    id "org.asciidoctor.jvm.convert" version "3.3.2"
 }
 
 group = 'twodorian'
-version = '0.0.1-SNAPSHOT'
+version = '1.0'
 
 java {
     toolchain {
@@ -55,10 +56,6 @@ dependencies {
     // Message Queue - Kafka
     implementation 'org.springframework.kafka:spring-kafka'
 
-    // 테스트 기능
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.mockito:mockito-core:4.8.0'
-
     // swagger-ui
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
 
@@ -83,6 +80,13 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
+    // 테스트 기능
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mockito:mockito-core'
+
+    // 테스트 문서화
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
     // openfeign
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 }
@@ -93,6 +97,29 @@ dependencyManagement {
     }
 }
 
+ext {
+    set('snippetsDir', file("build/generated-snippets"))
+}
+
 tasks.named('test') {
+    outputs.dir snippetsDir
+    systemProperty 'file.encoding', 'UTF-8'
     useJUnitPlatform()
+}
+
+tasks.named('asciidoctor') {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+bootJar {
+    dependsOn asciidoctor
+    copy {
+        from "${asciidoctor.outputDir}"
+        into 'src/main/resources/docs'
+    }
+}
+
+jar {
+    enabled = false
 }

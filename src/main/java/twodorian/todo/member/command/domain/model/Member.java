@@ -11,7 +11,7 @@ import twodorian.todo.member.command.domain.model.property.Authority;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "user_tb")
+@Table(name = "member_tb")
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
